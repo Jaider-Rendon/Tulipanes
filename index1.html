@@ -1272,41 +1272,6 @@ body {
       }, 1000);
     };
   </script>
-
-  <audio id="bg-music" autoplay loop muted>
-    <source src="floreditado.mp3" type="audio/mpeg">
-    Tu navegador no soporta audio.
-  </audio>
-
-  <button id="music-toggle" class="music-btn" style="position: fixed; bottom: 20px; right: 20px; z-index: 100; background: none; border: none; font-size: 30px; cursor: pointer;">🔇</button>
-
-  <script>
-    const music = document.getElementById("bg-music");
-    const toggleBtn = document.getElementById("music-toggle");
-
-    // Activar sonido tras el primer clic en cualquier parte
-    document.addEventListener("click", () => {
-      if (music.muted) {
-        music.muted = false;
-        music.play();
-        toggleBtn.textContent = "🎵";
-      }
-    }, { once: true });
-
-    // Botón para play/pause
-    toggleBtn.addEventListener("click", (e) => {
-      e.stopPropagation();
-      if (music.paused) {
-        music.play();
-        toggleBtn.textContent = "🎵";
-      } else {
-        music.pause();
-        toggleBtn.textContent = "🔇";
-      }
-    });
-
-    
-  </script>
 </body>
 
 </html>
