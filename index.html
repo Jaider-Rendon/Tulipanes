@@ -1,27 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Flores de Jaider🍁</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flores de Jaider 🍁</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
   <div class="container">
+    <!-- Sobre animado -->
     <div class="envelope">
       <div class="envelope-inner">
 
-        <!-- Frente de la carta -->
+        <!-- Frente del sobre -->
         <div class="envelope-front">
           <div class="postage-stamp">
             <svg fill="currentColor" version="1.1" xmlns="http://www.w3.org/2000/svg" 
               viewBox="0 0 300 300" xml:space="preserve">
-              <path d="M253.98,257.652c0-8.568,8.568-17.748,17.136-18.361c-1.224-4.895-1.224-10.402-0.611-15.299 ..."></path>
+              <path d="M253.98,257.652c0-8.568,8.568-17.748,17.136-18.361c-1.224-4.895-1.224-10.402-0.611-15.299c-8.568,0.612-17.748-8.568-18.361-17.136c-4.896,1.224-10.403,1.224-15.299,0.612c0.611,8.568-8.569,17.748-17.137,18.361c1.225,4.895,1.225,10.402,0.612,15.298C228.889,240.516,238.068,249.696,253.98,257.652z M28.019,257.652c0-8.568-8.568-17.748-17.136-18.361c1.224-4.895,1.224-10.402,0.612-15.299c8.568,0.612,17.748-8.568,18.361-17.136c4.895,1.224,10.402,1.224,15.298,0.612c-0.612,8.568,8.568,17.748,17.136,18.361c-1.224,4.895-1.224,10.402-0.612,15.298C53.11,240.516,43.931,249.696,28.019,257.652z M253.98,42.348c0,8.568,8.568,17.748,17.136,18.361c-1.224,4.895-1.224,10.402-0.611,15.299c-8.568-0.612-17.748,8.568-18.361,17.136c-4.896-1.224-10.403-1.224-15.299-0.612c0.611-8.568-8.569-17.748-17.137-18.361c1.225-4.895,1.225-10.402,0.612-15.299C228.889,59.484,238.068,50.304,253.98,42.348z M28.019,42.348c0,8.568-8.568,17.748-17.136,18.361c1.224,4.895,1.224,10.402,0.612,15.299c8.568-0.612,17.748,8.568,18.361,17.136c4.895-1.224,10.402-1.224,15.298-0.612c-0.612-8.568,8.568-17.748,17.136-18.361c-1.224-4.895-1.224-10.402-0.612-15.299C53.11,59.484,43.931,50.304,28.019,42.348z M149.5,96.51c-29.274,0-53.09,23.816-53.09,53.09s23.816,53.09,53.09,53.09s53.09-23.816,53.09-53.09S178.774,96.51,149.5,96.51z M149.5,185.974c-20.093,0-36.374-16.281-36.374-36.374c0-20.092,16.281-36.374,36.374-36.374c20.092,0,36.374,16.282,36.374,36.374C185.874,169.692,169.592,185.974,149.5,185.974z"></path>
             </svg>
           </div>
           <div class="address">
-            <p><span>Para:</span> <span>El amor de mi vida </span></p>
-            <p><span>De:</span> <span>Tu novio </span></p>
+            <p><span>Para:</span> <span>El amor de mi vida</span></p>
+            <p><span>De:</span> <span>Tu novio</span></p>
           </div>
         </div>
 
@@ -30,48 +32,42 @@
           <div class="top-fold"></div>
           <div class="letter">
             <img src="https://img.freepik.com/vector-premium/pulgar-dedos-imprimir-marca-huella-dactilar-amor-corazon_53500-1839.jpg" 
-                 alt="love1" class="custom-image">
+                 alt="Huella de amor" class="custom-image">
 
-            <p> Feliz cumpleaños mi amor <span class="highlight">¡Te Amo!</span></p>
+            <p>Feliz cumpleaños mi amor <span class="highlight">¡Te Amo!</span></p>
 
-            <img src="mochixd.png" alt="love2" class="custom-image2">
+            <img src="mochixd.png" alt="Imagen especial" class="custom-image2">
           </div>
         </div>
 
       </div>
     </div>
 
-    <!-- 🌼 Botón debajo de la carta -->
-    <p></p>
-    <p></p>
-    <button id="goToFlowers" class="letter-button"> Ver tu ramo de flores</button>
-    
+    <!-- Botón para ver las flores -->
+    <button id="goToFlowers" class="letter-button">🌸 Ver tu ramo de flores</button>
   </div>
 
-  <!-- 🎵 Audio oculto -->
-  <audio id="bg-music" loop>
-    <source src="flormusica.mp3" type="audio/mpeg">
-    Tu navegador no soporta audio.
-  </audio>
-
   <script>
-    const envelope = document.querySelector(".envelope");
-    const music = document.getElementById("bg-music");
+    // Elementos del DOM
+    const envelope = document.querySelector('.envelope');
+    const goToFlowersBtn = document.getElementById('goToFlowers');
+    const music = document.getElementById('bg-music');
 
-    // Abrir/cerrar carta + reproducir música en el primer click
-    envelope.addEventListener("click", () => {
-      envelope.classList.toggle("open");
+    // Toggle del sobre al hacer click
+    envelope.addEventListener('click', () => {
+      envelope.classList.toggle('open');
 
-      if (music.paused) {
+      // Reproducir música si existe y está pausada
+      if (music && music.paused) {
         music.play().catch(err => {
-          console.log("El navegador bloqueó el autoplay hasta interacción:", err);
+          console.log('El navegador bloqueó el autoplay hasta interacción:', err);
         });
       }
     });
 
-    // Redirigir al index1 al tocar el botón
-    document.getElementById("goToFlowers").addEventListener("click", () => {
-      window.location.href = "index1.html";
+    // Redirigir a la página de flores
+    goToFlowersBtn.addEventListener('click', () => {
+      window.location.href = 'index1.html';
     });
   </script>
 </body>

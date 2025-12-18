@@ -1,5 +1,8 @@
-@import url(https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap);
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap');
 
+/* ====================================
+   RESET Y CONFIGURACIÓN BASE
+   ==================================== */
 *,
 ::before,
 ::after {
@@ -7,8 +10,8 @@
 }
 
 body {
-  font-family: "Quicksand", sans-serif;
-  background: linear-gradient(to bottom right, #000000, #000000, #000000);
+  font-family: 'Quicksand', sans-serif;
+  background: linear-gradient(to bottom right, #000000, #1a0000, #000000);
   color: #ff2222;
   display: flex;
   justify-content: center;
@@ -16,45 +19,57 @@ body {
   min-height: 100vh;
   margin: 0;
   padding: 1rem;
-  margin-top: 50px;
   overflow: hidden;
   -webkit-tap-highlight-color: transparent;
 }
 
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+/* ====================================
+   VARIABLES DEL SOBRE
+   ==================================== */
 .envelope {
+  /* Timing */
   --duration: 1000ms;
+  --evelope-rotate-delay: calc(var(--duration) / 1);
+  --evelope-rotate-delay-hover: 0ms;
+  --fold-delay: calc(var(--duration) / 2);
+  --fold-delay-hover: calc(var(--duration) * 0.75);
+  --letter-delay: 0ms;
+  --letter-delay-hover: calc(var(--duration) * 1.25);
 
-  --shadow-width: calc(var(--envelope-width) * 0.85);
-  --shadow-blur: 15px;
-
+  /* Dimensiones */
   --envelope-width: 300px;
   --envelope-height: 175px;
+  --shadow-width: calc(var(--envelope-width) * 0.85);
+  --shadow-blur: 15px;
+  --letter-height: calc(var(--envelope-height) - 2rem);
+  --letter-height-hover: calc(var(--envelope-height) * 1.75);
+
+  /* Colores */
   --envelope-clr-bg: #d14d44;
   --envelope-clr-bg-side: #c24e46;
   --envelope-clr-bg-bottom: #e15349;
   --envelope-clr-bg-top: #d14d44;
   --envelope-clr-txt: #fff;
-
-  --envelope-transform: rotateY(0deg);
-  --envelope-transform-hover: rotateY(180deg);
-  --evelope-rotate-delay: calc(var(--duration) / 1);
-  --evelope-rotate-delay-hover: 0ms;
-
   --letter-clr-bg: #fff;
   --letter-clr-text: #b91300;
-  --letter-font-size: 1rem;
-  --letter-delay: 0ms;
-  --letter-delay-hover: calc(var(--duration) * 1.25);
 
-  --letter-height: calc(var(--envelope-height) - 2rem);
-  --letter-height-hover: calc(var(--envelope-height) * 1.75);
-
+  /* Transformaciones */
+  --envelope-transform: rotateY(0deg);
+  --envelope-transform-hover: rotateY(180deg);
   --fold-rotate: rotateX(0deg);
-  --fold-zindex-hover: 0;
   --fold-rotate-hover: rotateX(180deg);
-  --fold-delay: calc(var(--duration) / 2);
-  --fold-delay-hover: calc(var(--duration) * .75);
+  --fold-zindex: 10;
+  --fold-zindex-hover: 0;
 
+  /* Tamaños de fuente */
+  --letter-font-size: 1rem;
   --front-font-size: 1rem;
   --snowman-width: 50px;
   --bells-width: 30px;
@@ -66,6 +81,7 @@ body {
   cursor: pointer;
 }
 
+/* Responsive para pantallas grandes */
 @media (min-width: 720px) {
   .envelope {
     --envelope-width: 600px;
@@ -77,7 +93,9 @@ body {
   }
 }
 
-/* sombra */
+/* ====================================
+   SOMBRA DEL SOBRE
+   ==================================== */
 .envelope::after {
   content: "";
   position: absolute;
@@ -87,16 +105,18 @@ body {
   height: 40px;
   transition: var(--duration) ease-in-out;
   transition-delay: var(--evelope-rotate-delay);
-  transform: var(--shadow-transform);
+  transform: var(--shadow-transform, none);
   translate: -50% 0;
   border-radius: 50%;
   background: rgba(71, 5, 5, 0.432);
   filter: blur(var(--shadow-blur));
 }
 
-/* estado abierto al hacer click */
+/* ====================================
+   ESTADO ABIERTO
+   ==================================== */
 .envelope.open {
-  --envelope-transform: var(--envelope-transform-hover, 0deg);
+  --envelope-transform: var(--envelope-transform-hover);
   --evelope-rotate-delay: var(--evelope-rotate-delay-hover);
   --shadow-transform: rotateY(180deg);
   --fold-rotate: var(--fold-rotate-hover);
@@ -106,6 +126,9 @@ body {
   --letter-delay: var(--letter-delay-hover);
 }
 
+/* ====================================
+   CONTENEDOR INTERNO DEL SOBRE
+   ==================================== */
 .envelope-inner {
   position: relative;
   width: 100%;
@@ -117,6 +140,9 @@ body {
   display: grid;
 }
 
+/* ====================================
+   CARAS DEL SOBRE
+   ==================================== */
 .envelope-front,
 .envelope-back {
   position: relative;
@@ -124,39 +150,50 @@ body {
   width: 100%;
   height: 100%;
   background-color: var(--envelope-clr-bg);
-  -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
   perspective: 1000px;
   isolation: isolate;
 }
 
+/* Frente del sobre */
 .envelope-front {
   color: var(--envelope-clr-txt);
   display: grid;
   place-content: center;
 }
+
 .envelope-front .postage-stamp {
   position: absolute;
   top: 1em;
   right: 0.5em;
   width: 15%;
 }
+
 .envelope-front .address {
   text-align: left;
   font-size: var(--front-font-size);
+  line-height: 1.6;
 }
+
+.envelope-front .address > p {
+  margin: 0.5em 0;
+}
+
 .envelope-front .address > p > span:first-child {
   font-family: system-ui;
   font-weight: 200;
 }
+
 .envelope-front .address > p > span:last-of-type {
   font-weight: 800;
 }
 
+/* Reverso del sobre */
 .envelope-back {
   transform: rotateY(180deg);
 }
-/* pliegues */
+
+/* Pliegues del sobre */
 .envelope-back::after {
   content: "";
   position: absolute;
@@ -170,10 +207,11 @@ body {
     transparent 300deg
   );
 }
+
 .envelope-back .top-fold {
   position: absolute;
   inset: 0;
-  z-index: var(--fold-zindex, 10);
+  z-index: var(--fold-zindex);
   background-color: var(--envelope-clr-bg-top);
   clip-path: polygon(0% 0%, 50% 55%, 100% 0%);
   transform: var(--fold-rotate);
@@ -182,6 +220,9 @@ body {
   transition-delay: var(--fold-delay);
 }
 
+/* ====================================
+   CARTA INTERIOR
+   ==================================== */
 .letter {
   position: absolute;
   bottom: 5px;
@@ -201,75 +242,63 @@ body {
   transition: var(--duration) ease-in-out;
   transition-delay: var(--letter-delay);
   overflow: hidden;
+  border-radius: 4px;
 }
+
 .letter p {
   margin: 0;
   font-weight: bold;
-  width: 32ch;
+  max-width: 32ch;
   color: var(--letter-clr-text);
+  line-height: 1.5;
 }
 
 .custom-image {
   width: 100px;
   height: 100px;
-  object-fit: contain; 
+  object-fit: contain;
 }
+
 .custom-image2 {
   width: 150px;
   height: 150px;
-  object-fit: contain; 
+  object-fit: contain;
 }
 
 .highlight {
-  display: block; 
-  margin-top: 10px; 
-  font-size: 1.8rem;  
-  font-weight: bold; 
+  display: block;
+  margin-top: 10px;
+  font-size: 1.8rem;
+  font-weight: bold;
 }
 
+/* ====================================
+   BOTÓN DE ACCIÓN
+   ==================================== */
 .letter-button {
-  display: none; /* oculto hasta que la carta se abra */
+  display: none;
   margin-top: 15px;
-  padding: 10px 20px;
+  padding: 12px 24px;
   font-size: 16px;
   font-weight: bold;
   border: none;
-  border-radius: 20px;
+  border-radius: 25px;
   background: linear-gradient(90deg, #ff8c00, #ffd700);
   color: #000;
   cursor: pointer;
-  box-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
-  transition: transform 0.2s ease;
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
+  transition: transform 0.2s ease, opacity 0.5s ease, box-shadow 0.3s ease;
+  opacity: 0;
+  font-family: 'Quicksand', sans-serif;
 }
 
 .letter-button:hover {
   transform: scale(1.1);
+  box-shadow: 0 0 25px rgba(255, 215, 0, 1);
 }
 
-
-.button-container {
-  margin-top: 20px;
-  text-align: center;
-}
-
-.letter-button {
-  display: none; /* oculto hasta que la carta se abra */
-  padding: 10px 20px;
-  font-size: 16px;
-  font-weight: bold;
-  border: none;
-  border-radius: 20px;
-  background: linear-gradient(90deg, #ff8c00, #ffd700);
-  color: #000;
-  cursor: pointer;
-  box-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
-  transition: transform 0.2s ease, opacity 0.5s ease;
-  opacity: 0; /* para animación */
-}
-
-.letter-button {
-  display: none;
-  opacity: 0;
+.letter-button:active {
+  transform: scale(1.05);
 }
 
 .envelope.open ~ .letter-button {
@@ -277,8 +306,9 @@ body {
   opacity: 1;
 }
 
-
-/*corazones lluvia*/
+/* ====================================
+   ANIMACIÓN DE CORAZONES
+   ==================================== */
 .heart {
   position: fixed;
   top: -20px;
